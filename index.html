@@ -2,154 +2,120 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Raller — Chat & Articles</title>
+  <title>Raller — Chat & Today’s Post</title>
   <style>
-    /* Reset & base */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(120deg, #1e1e2f, #2a2a40);
-      color: #fff;
-      overflow-x: hidden;
-    }
-
-    header {
-      background: #111;
-      padding: 20px;
-      text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      animation: slideDown 1s ease;
-    }
-    header h1 {
-      font-size: 2rem;
-      letter-spacing: 2px;
-      color: #00e0ff;
-    }
-
-    nav {
-      margin-top: 10px;
-    }
-    nav a {
-      color: #fff;
-      margin: 0 15px;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-    nav a:hover {
-      color: #00e0ff;
-    }
-
-    /* Hero section */
-    .hero {
-      height: 60vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      animation: fadeIn 2s ease;
-    }
-    .hero h2 {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-      color: #00e0ff;
-    }
-    .hero p {
-      font-size: 1.2rem;
-      opacity: 0.8;
-    }
-
-    /* Chat & Articles */
-    .container {
-      display: flex;
-      flex-wrap: wrap;
-      padding: 40px;
-      gap: 30px;
-      justify-content: center;
-    }
-    .card {
-      background: #222;
-      border-radius: 12px;
-      padding: 20px;
-      width: 350px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-      transition: transform 0.4s, box-shadow 0.4s;
-      animation: popUp 1s ease;
-    }
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 12px 25px rgba(0,0,0,0.6);
-    }
-    .card h3 {
-      color: #00e0ff;
-      margin-bottom: 10px;
-    }
-    .card p {
-      font-size: 0.95rem;
-      line-height: 1.5;
-      opacity: 0.9;
-    }
-
-    /* Footer */
-    footer {
-      background: #111;
-      text-align: center;
-      padding: 20px;
-      margin-top: 40px;
-      font-size: 0.9rem;
-      opacity: 0.7;
-    }
-
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes slideDown {
-      from { transform: translateY(-100%); }
-      to { transform: translateY(0); }
-    }
-    @keyframes popUp {
-      from { transform: scale(0.9); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
+    body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg,#0b2e2a,#123d35,#0f2a24); color:#f0f0f0; text-align:center; }
+    header { background:#081c18; padding:20px; position:sticky; top:0; }
+    header h1 { color:#00ff99; }
+    nav a { color:#f0f0f0; margin:0 15px; text-decoration:none; }
+    nav a:hover { color:#00ff99; }
+    .card { background:#102822; border-radius:12px; padding:20px; margin:20px auto; width:400px; text-align:left; }
+    .card h3 { color:#00ff99; }
+    input,textarea { width:100%; padding:10px; margin:8px 0; border:none; border-radius:6px; background:#123d35; color:#fff; }
+    button { padding:10px; border:none; border-radius:6px; background:#00ff99; color:#081c18; font-weight:bold; cursor:pointer; }
+    button:hover { background:#00cc77; }
+    #messages { height:200px; overflow-y:auto; background:#123d35; padding:10px; border-radius:8px; }
+    #postFeed { margin-top:10px; }
+    #postFeed p { background:#123d35; padding:8px; border-radius:6px; margin:5px 0; }
   </style>
 </head>
 <body>
   <header>
     <h1>Raller</h1>
     <nav>
-      <a href="#chat">Chat</a>
-      <a href="#articles">Articles</a>
-      <a href="#about">About</a>
+      <a href="#chatRoom">Chat</a>
+      <a href="#todaysPost">Today’s Raller Post</a>
+      <a href="#signup">Sign Up</a>
+      <a href="#login">Login</a>
     </nav>
   </header>
 
-  <section class="hero">
-    <div>
-      <h2>Welcome to Raller</h2>
-      <p>Smooth chatting & powerful article sharing — all in one place.</p>
-    </div>
+  <!-- Chat -->
+  <section class="card" id="chatRoom">
+    <h3>Chat Room</h3>
+    <div id="messages"></div>
+    <input id="chatInput" placeholder="Type a message...">
+    <button onclick="sendMessage()">Send</button>
   </section>
 
-  <section class="container" id="chat">
-    <div class="card">
-      <h3>Chat Room</h3>
-      <p>Engage in real‑time conversations with the Raller community. Fast, secure, and fun.</p>
-    </div>
-    <div class="card" id="articles">
-      <h3>Articles</h3>
-      <p>Post and explore insightful articles. Share your knowledge and ideas with the world.</p>
-    </div>
-    <div class="card" id="about">
-      <h3>About Raller</h3>
-      <p>Raller combines the best of chat and content creation. Built for smooth experiences and growth.</p>
-    </div>
+  <!-- Today’s Raller Post -->
+  <section class="card" id="todaysPost">
+    <h3>Today's Raller Post</h3>
+    <form onsubmit="return postArticle(event)">
+      <textarea id="postContent" placeholder="Write your Raller post..." rows="5" required></textarea>
+      <button type="submit">Publish</button>
+    </form>
+    <div id="postFeed"></div>
   </section>
 
-  <footer>
-    © 2026 Raller — Chat & Articles Service
-  </footer>
+  <!-- Sign Up -->
+  <section class="card" id="signup">
+    <h3>Create Account</h3>
+    <form onsubmit="return signup(event)">
+      <input type="email" id="signupEmail" placeholder="Email" required>
+      <input type="password" id="signupPassword" placeholder="Password" required>
+      <button type="submit">Sign Up</button>
+    </form>
+  </section>
+
+  <!-- Login -->
+  <section class="card" id="login">
+    <h3>Login</h3>
+    <form onsubmit="return login(event)">
+      <input type="email" id="loginEmail" placeholder="Email" required>
+      <input type="password" id="loginPassword" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+  </section>
+
+  <script>
+    // In-memory storage
+    let users = [];
+    let posts = [];
+
+    // Chat
+    function sendMessage() {
+      const input = document.getElementById("chatInput");
+      const msg = input.value.trim();
+      if(!msg) return;
+      const messages = document.getElementById("messages");
+      const p = document.createElement("p");
+      p.textContent = msg;
+      messages.appendChild(p);
+      input.value = "";
+    }
+
+    // Posts
+    function postArticle(e) {
+      e.preventDefault();
+      const content = document.getElementById("postContent").value.trim();
+      if(!content) return;
+      posts.unshift(content);
+      const feed = document.getElementById("postFeed");
+      const p = document.createElement("p");
+      p.textContent = content;
+      feed.prepend(p);
+      document.getElementById("postContent").value="";
+    }
+
+    // Signup
+    function signup(e) {
+      e.preventDefault();
+      const email=document.getElementById("signupEmail").value;
+      const pass=document.getElementById("signupPassword").value;
+      users.push({email,password:pass});
+      alert("Account created for "+email);
+    }
+
+    // Login
+    function login(e) {
+      e.preventDefault();
+      const email=document.getElementById("loginEmail").value;
+      const pass=document.getElementById("loginPassword").value;
+      const user=users.find(u=>u.email===email && u.password===pass);
+      if(user) alert("Logged in as "+email);
+      else alert("Invalid credentials");
+    }
+  </script>
 </body>
 </html>
