@@ -1,1 +1,155 @@
-<!DOCTYPE html><html lang="en"><head>  <meta charset="UTF-8">  <title>Raller Tools Download Center</title>  <style>    body { font-family: Arial, sans-serif; margin:0; background:#f4f4f4; }    header { background:#222; color:#fff; padding:20px; text-align:center; }    .container { max-width:800px; margin:40px auto; padding:20px; background:#fff; border-radius:8px; box-shadow:0 0 10px rgba(0,0,0,0.1); }    h2 { color:#333; }    .download { display:block; margin:15px 0; padding:12px; background:#0078d7; color:#fff; text-decoration:none; border-radius:5px; text-align:center; }    .download:hover { background:#005a9e; }    footer { text-align:center; padding:20px; background:#222; color:#ccc; margin-top:40px; }  </style></head><body>  <header>    <h1>Raller Tools</h1>    <p>Lightweight IDEs and Utilities</p>  </header>  <div class="container">    <h2>Available Downloads</h2>    <a class="download" href="RallerPy.exe" download>Download RallerPy.exe</a>    <a class="download" href="RallerJava.exe" download>Download RallerJava.exe</a>    <a class="download" href="OtherTool.zip" download>Download OtherTool.zip</a>  </div>  <footer>    <p>&copy; 2026 Raller Projects. All rights reserved.</p>  </footer></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Raller — Chat & Articles</title>
+  <style>
+    /* Reset & base */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(120deg, #1e1e2f, #2a2a40);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    header {
+      background: #111;
+      padding: 20px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      animation: slideDown 1s ease;
+    }
+    header h1 {
+      font-size: 2rem;
+      letter-spacing: 2px;
+      color: #00e0ff;
+    }
+
+    nav {
+      margin-top: 10px;
+    }
+    nav a {
+      color: #fff;
+      margin: 0 15px;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #00e0ff;
+    }
+
+    /* Hero section */
+    .hero {
+      height: 60vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      animation: fadeIn 2s ease;
+    }
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: #00e0ff;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      opacity: 0.8;
+    }
+
+    /* Chat & Articles */
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 40px;
+      gap: 30px;
+      justify-content: center;
+    }
+    .card {
+      background: #222;
+      border-radius: 12px;
+      padding: 20px;
+      width: 350px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      transition: transform 0.4s, box-shadow 0.4s;
+      animation: popUp 1s ease;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.6);
+    }
+    .card h3 {
+      color: #00e0ff;
+      margin-bottom: 10px;
+    }
+    .card p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      opacity: 0.9;
+    }
+
+    /* Footer */
+    footer {
+      background: #111;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideDown {
+      from { transform: translateY(-100%); }
+      to { transform: translateY(0); }
+    }
+    @keyframes popUp {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Raller</h1>
+    <nav>
+      <a href="#chat">Chat</a>
+      <a href="#articles">Articles</a>
+      <a href="#about">About</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <h2>Welcome to Raller</h2>
+      <p>Smooth chatting & powerful article sharing — all in one place.</p>
+    </div>
+  </section>
+
+  <section class="container" id="chat">
+    <div class="card">
+      <h3>Chat Room</h3>
+      <p>Engage in real‑time conversations with the Raller community. Fast, secure, and fun.</p>
+    </div>
+    <div class="card" id="articles">
+      <h3>Articles</h3>
+      <p>Post and explore insightful articles. Share your knowledge and ideas with the world.</p>
+    </div>
+    <div class="card" id="about">
+      <h3>About Raller</h3>
+      <p>Raller combines the best of chat and content creation. Built for smooth experiences and growth.</p>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 Raller — Chat & Articles Service
+  </footer>
+</body>
+</html>
