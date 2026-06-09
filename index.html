@@ -2,64 +2,37 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Raller Pro</title>
+  <title>Raller Pro Chatbot</title>
   <style>
-    body, html {
+    html, body {
       margin: 0;
       padding: 0;
       height: 100%;
-      font-family: Arial, sans-serif;
+      width: 100%;
       background: #f9f9f9;
+      font-family: Arial, sans-serif;
     }
-    /* Loading screen */
-    #loading {
+    #chatbot-container {
+      height: 100%;
+      width: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100%;
-      background: #111;
-      color: #fff;
-      font-size: 24px;
-      animation: fadeInOut 3s ease-in-out;
     }
-    @keyframes fadeInOut {
-      0% { opacity: 0; }
-      20% { opacity: 1; }
-      80% { opacity: 1; }
-      100% { opacity: 0; }
+    /* Optional: fade-in effect */
+    #chatbot-container {
+      animation: fadeIn 1s ease-in;
     }
-    /* Main content hidden initially */
-    #main {
-      display: none;
-      padding: 20px;
-      text-align: center;
-    }
-    #chatbot {
-      margin-top: 20px;
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
     }
   </style>
 </head>
 <body>
-  <!-- Loading screen -->
-  <div id="loading">Loading Raller Pro...</div>
-
-  <!-- Main content -->
-  <div id="main">
-    <h1>Welcome to Raller Pro</h1>
-    <p>Your AI assistant is ready!</p>
-
-    <!-- Embedded Jotform chatbot -->
-    <div id="chatbot">
-      <script src="https://cdn.jotfor.ms/agent/embedjs/019e87c0c6167641a13db443dd9e531826ab/embed.js"></script>
-    </div>
+  <div id="chatbot-container">
+    <!-- Full screen Jotform chatbot embed -->
+    <script src="https://cdn.jotfor.ms/agent/embedjs/019e87c0c6167641a13db443dd9e531826ab/embed.js"></script>
   </div>
-
-  <script>
-    // Show loading screen for 3 seconds, then reveal main content
-    setTimeout(function() {
-      document.getElementById("loading").style.display = "none";
-      document.getElementById("main").style.display = "block";
-    }, 3000);
-  </script>
 </body>
 </html>
