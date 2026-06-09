@@ -20,12 +20,22 @@
       background: #111;
       color: #fff;
       font-size: 24px;
+      animation: fadeInOut 3s ease-in-out;
+    }
+    @keyframes fadeInOut {
+      0% { opacity: 0; }
+      20% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; }
     }
     /* Main content hidden initially */
     #main {
       display: none;
       padding: 20px;
       text-align: center;
+    }
+    #chatbot {
+      margin-top: 20px;
     }
   </style>
 </head>
@@ -38,7 +48,7 @@
     <h1>Welcome to Raller Pro</h1>
     <p>Your AI assistant is ready!</p>
 
-    <!-- Example: Embed Jotform chatbot -->
+    <!-- Embedded Jotform chatbot -->
     <div id="chatbot">
       <script src="https://cdn.jotfor.ms/agent/embedjs/019e87c0c6167641a13db443dd9e531826ab/embed.js"></script>
     </div>
