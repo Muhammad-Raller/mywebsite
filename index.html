@@ -2,37 +2,49 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Raller Pro Chatbot</title>
+  <title>Full Screen Chatbot</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
       width: 100%;
-      background: #111;
+      background: #f9f9f9;
       font-family: Arial, sans-serif;
     }
-    #chatbot-container {
-      height: 100%;
-      width: 100%;
+    #loading {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      font-size: 1.5em;
+      transition: opacity 1s ease;
+      z-index: 9999;
     }
-    /* Optional: fade-in effect */
-    #chatbot-container {
-      animation: fadeIn 1s ease-in;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
+    #chatbot {
+      width: 100%;
+      height: 100vh;
+      display: none;
     }
   </style>
 </head>
 <body>
-  <div id="chatbot-container">
-    <!-- Full screen Jotform chatbot embed -->
+  <div id="loading">Loading your chatbot...</div>
+  <div id="chatbot">
     <script src="https://cdn.jotfor.ms/agent/embedjs/019e87c0c6167641a13db443dd9e531826ab/embed.js"></script>
   </div>
+
+  <script>
+    setTimeout(() => {
+      document.getElementById('loading').style.opacity = '0';
+      setTimeout(() => {
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('chatbot').style.display = 'block';
+      }, 1000);
+    }, 3000);
+  </script>
 </body>
 </html>
