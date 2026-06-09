@@ -2,158 +2,54 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Magnium Search Engine</title>
+  <title>Raller Pro</title>
   <style>
-    body {
-      font-family: "Segoe UI", Arial, sans-serif;
-      background: #f5f7fa;
+    body, html {
       margin: 0;
       padding: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
     }
-    header {
-      background: #0a74da;
-      padding: 20px;
-      text-align: center;
+    /* Loading screen */
+    #loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      background: #111;
       color: #fff;
-      font-size: 32px;
-      font-weight: bold;
-      letter-spacing: 2px;
+      font-size: 24px;
     }
-    #search-container {
-      margin: 60px auto;
+    /* Main content hidden initially */
+    #main {
+      display: none;
+      padding: 20px;
       text-align: center;
-    }
-    input {
-      width: 50%;
-      padding: 14px;
-      font-size: 18px;
-      border-radius: 30px;
-      border: 1px solid #ccc;
-      outline: none;
-      transition: box-shadow 0.3s ease;
-    }
-    input:focus {
-      box-shadow: 0 0 10px #0a74da;
-    }
-    button {
-      padding: 14px 24px;
-      margin-left: 10px;
-      font-size: 18px;
-      border-radius: 30px;
-      border: none;
-      background: #0a74da;
-      color: #fff;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    button:hover {
-      background: #084c9e;
-    }
-    #ai-overview {
-      margin: 30px auto;
-      width: 70%;
-      background: #fff;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      font-size: 16px;
-      color: #333;
-      animation: fadeIn 0.5s ease;
-    }
-    #results {
-      margin: 30px auto;
-      width: 70%;
-      text-align: left;
-      animation: fadeIn 0.5s ease;
-    }
-    .result {
-      background: #fff;
-      padding: 20px;
-      margin-bottom: 15px;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      transition: transform 0.2s ease;
-    }
-    .result:hover {
-      transform: scale(1.02);
-    }
-    .result a {
-      font-size: 22px;
-      color: #0a74da;
-      text-decoration: none;
-    }
-    .result p {
-      font-size: 16px;
-      color: #555;
-    }
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
-    }
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #f0f0f0;
-      color: #777;
-      font-size: 14px;
     }
   </style>
 </head>
 <body>
-  <header>Magnium</header>
-  <div id="search-container">
-    <input type="text" id="query" placeholder="Search Magnium...">
-    <button onclick="search()">Search</button>
+  <!-- Loading screen -->
+  <div id="loading">Loading Raller Pro...</div>
+
+  <!-- Main content -->
+  <div id="main">
+    <h1>Welcome to Raller Pro</h1>
+    <p>Your AI assistant is ready!</p>
+
+    <!-- Example: Embed Jotform chatbot -->
+    <div id="chatbot">
+      <script src="https://cdn.jotfor.ms/agent/embedjs/019e87c0c6167641a13db443dd9e531826ab/embed.js"></script>
+    </div>
   </div>
 
-  <!-- AI Overview Panel -->
-  <div id="ai-overview"></div>
-
-  <!-- Search Results -->
-  <div id="results"></div>
-
-  <footer>© 2026 Magnium Search Engine</footer>
-
   <script>
-    let sites = [];
-    fetch("sites.json")
-      .then(response => response.json())
-      .then(data => sites = data);
-
-    function search() {
-      const q = document.getElementById("query").value.toLowerCase();
-      const resultsDiv = document.getElementById("results");
-      const overviewDiv = document.getElementById("ai-overview");
-      resultsDiv.innerHTML = "";
-      overviewDiv.innerHTML = "";
-
-      // Generate AI-style overview (simple summary for now)
-      overviewDiv.innerHTML = `<h2>AI Overview</h2>
-        <p>Magnium found information related to <strong>${q}</strong>. 
-        Here’s a quick summary based on indexed sources:</p>`;
-
-      const results = sites.filter(site =>
-        site.title.toLowerCase().includes(q) ||
-        site.content.toLowerCase().includes(q)
-      );
-
-      if (results.length === 0) {
-        resultsDiv.innerHTML = "<p>No results found.</p>";
-        overviewDiv.innerHTML += "<p>No indexed sources matched your query.</p>";
-      } else {
-        // Add a short AI-style summary
-        overviewDiv.innerHTML += `<p>Top sources include ${results.slice(0,3).map(r => r.title).join(", ")}.</p>`;
-
-        results.forEach(site => {
-          resultsDiv.innerHTML += `
-            <div class="result">
-              <a href="${site.url}" target="_blank">${site.title}</a>
-              <p>${site.content}</p>
-            </div>
-          `;
-        });
-      }
-    }
+    // Show loading screen for 3 seconds, then reveal main content
+    setTimeout(function() {
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("main").style.display = "block";
+    }, 3000);
   </script>
 </body>
 </html>
