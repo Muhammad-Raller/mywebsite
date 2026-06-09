@@ -2,119 +2,157 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Raller — Chat & Today’s Post</title>
+  <title>Magnium Search Engine</title>
   <style>
-    body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg,#0b2e2a,#123d35,#0f2a24); color:#f0f0f0; text-align:center; }
-    header { background:#081c18; padding:20px; position:sticky; top:0; }
-    header h1 { color:#00ff99; }
-    nav a { color:#f0f0f0; margin:0 15px; text-decoration:none; }
-    nav a:hover { color:#00ff99; }
-    .card { background:#102822; border-radius:12px; padding:20px; margin:20px auto; width:400px; text-align:left; }
-    .card h3 { color:#00ff99; }
-    input,textarea { width:100%; padding:10px; margin:8px 0; border:none; border-radius:6px; background:#123d35; color:#fff; }
-    button { padding:10px; border:none; border-radius:6px; background:#00ff99; color:#081c18; font-weight:bold; cursor:pointer; }
-    button:hover { background:#00cc77; }
-    #messages { height:200px; overflow-y:auto; background:#123d35; padding:10px; border-radius:8px; }
-    #postFeed { margin-top:10px; }
-    #postFeed p { background:#123d35; padding:8px; border-radius:6px; margin:5px 0; }
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #0a74da;
+      padding: 20px;
+      text-align: center;
+      color: #fff;
+      font-size: 32px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+    #search-container {
+      margin: 60px auto;
+      text-align: center;
+    }
+    input {
+      width: 50%;
+      padding: 14px;
+      font-size: 18px;
+      border-radius: 30px;
+      border: 1px solid #ccc;
+      outline: none;
+      transition: box-shadow 0.3s ease;
+    }
+    input:focus {
+      box-shadow: 0 0 10px #0a74da;
+    }
+    button {
+      padding: 14px 24px;
+      margin-left: 10px;
+      font-size: 18px;
+      border-radius: 30px;
+      border: none;
+      background: #0a74da;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #084c9e;
+    }
+    #ai-overview {
+      margin: 30px auto;
+      width: 70%;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      font-size: 16px;
+      color: #333;
+      animation: fadeIn 0.5s ease;
+    }
+    #results {
+      margin: 30px auto;
+      width: 70%;
+      text-align: left;
+      animation: fadeIn 0.5s ease;
+    }
+    .result {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 15px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
+    }
+    .result:hover {
+      transform: scale(1.02);
+    }
+    .result a {
+      font-size: 22px;
+      color: #0a74da;
+      text-decoration: none;
+    }
+    .result p {
+      font-size: 16px;
+      color: #555;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #f0f0f0;
+      color: #777;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Raller</h1>
-    <nav>
-      <a href="#chatRoom">Chat</a>
-      <a href="#todaysPost">Today’s Raller Post</a>
-      <a href="#signup">Sign Up</a>
-      <a href="#login">Login</a>
-    </nav>
-  </header>
+  <header>Magnium</header>
+  <div id="search-container">
+    <input type="text" id="query" placeholder="Search Magnium...">
+    <button onclick="search()">Search</button>
+  </div>
 
-  <!-- Chat -->
-  <section class="card" id="chatRoom">
-    <h3>Chat Room</h3>
-    <div id="messages"></div>
-    <input id="chatInput" placeholder="Type a message...">
-    <button onclick="sendMessage()">Send</button>
-  </section>
+  <!-- AI Overview Panel -->
+  <div id="ai-overview"></div>
 
-  <!-- Today’s Raller Post -->
-  <section class="card" id="todaysPost">
-    <h3>Today's Raller Post</h3>
-    <form onsubmit="return postArticle(event)">
-      <textarea id="postContent" placeholder="Write your Raller post..." rows="5" required></textarea>
-      <button type="submit">Publish</button>
-    </form>
-    <div id="postFeed"></div>
-  </section>
+  <!-- Search Results -->
+  <div id="results"></div>
 
-  <!-- Sign Up -->
-  <section class="card" id="signup">
-    <h3>Create Account</h3>
-    <form onsubmit="return signup(event)">
-      <input type="email" id="signupEmail" placeholder="Email" required>
-      <input type="password" id="signupPassword" placeholder="Password" required>
-      <button type="submit">Sign Up</button>
-    </form>
-  </section>
-
-  <!-- Login -->
-  <section class="card" id="login">
-    <h3>Login</h3>
-    <form onsubmit="return login(event)">
-      <input type="email" id="loginEmail" placeholder="Email" required>
-      <input type="password" id="loginPassword" placeholder="Password" required>
-      <button type="submit">Login</button>
-    </form>
-  </section>
+  <footer>© 2026 Magnium Search Engine</footer>
 
   <script>
-    // In-memory storage
-    let users = [];
-    let posts = [];
+    let sites = [];
+    fetch("sites.json")
+      .then(response => response.json())
+      .then(data => sites = data);
 
-    // Chat
-    function sendMessage() {
-      const input = document.getElementById("chatInput");
-      const msg = input.value.trim();
-      if(!msg) return;
-      const messages = document.getElementById("messages");
-      const p = document.createElement("p");
-      p.textContent = msg;
-      messages.appendChild(p);
-      input.value = "";
-    }
+    function search() {
+      const q = document.getElementById("query").value.toLowerCase();
+      const resultsDiv = document.getElementById("results");
+      const overviewDiv = document.getElementById("ai-overview");
+      resultsDiv.innerHTML = "";
+      overviewDiv.innerHTML = "";
 
-    // Posts
-    function postArticle(e) {
-      e.preventDefault();
-      const content = document.getElementById("postContent").value.trim();
-      if(!content) return;
-      posts.unshift(content);
-      const feed = document.getElementById("postFeed");
-      const p = document.createElement("p");
-      p.textContent = content;
-      feed.prepend(p);
-      document.getElementById("postContent").value="";
-    }
+      // Generate AI-style overview (simple summary for now)
+      overviewDiv.innerHTML = `<h2>AI Overview</h2>
+        <p>Magnium found information related to <strong>${q}</strong>. 
+        Here’s a quick summary based on indexed sources:</p>`;
 
-    // Signup
-    function signup(e) {
-      e.preventDefault();
-      const email=document.getElementById("signupEmail").value;
-      const pass=document.getElementById("signupPassword").value;
-      users.push({email,password:pass});
-      alert("Account created for "+email);
-    }
+      const results = sites.filter(site =>
+        site.title.toLowerCase().includes(q) ||
+        site.content.toLowerCase().includes(q)
+      );
 
-    // Login
-    function login(e) {
-      e.preventDefault();
-      const email=document.getElementById("loginEmail").value;
-      const pass=document.getElementById("loginPassword").value;
-      const user=users.find(u=>u.email===email && u.password===pass);
-      if(user) alert("Logged in as "+email);
-      else alert("Invalid credentials");
+      if (results.length === 0) {
+        resultsDiv.innerHTML = "<p>No results found.</p>";
+        overviewDiv.innerHTML += "<p>No indexed sources matched your query.</p>";
+      } else {
+        // Add a short AI-style summary
+        overviewDiv.innerHTML += `<p>Top sources include ${results.slice(0,3).map(r => r.title).join(", ")}.</p>`;
+
+        results.forEach(site => {
+          resultsDiv.innerHTML += `
+            <div class="result">
+              <a href="${site.url}" target="_blank">${site.title}</a>
+              <p>${site.content}</p>
+            </div>
+          `;
+        });
+      }
     }
   </script>
 </body>
